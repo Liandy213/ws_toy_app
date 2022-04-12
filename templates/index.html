@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<h1> Check your browser's console tab 👀 </h1>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        namespace = '/test';
+        var socket = io(namespace);
+
+        socket.on('connect', function() {
+            console.log("WebSocket connection has been established")
+        });
+
+        window.setInterval(function () {
+            socket.emit("PING");
+            console.log("PING sent")
+        }, 1000);
+
+        socket.on("PONG", function (payload) {
+            console.log("PONG received")
+        });
+    });
+</script>
+</html>
